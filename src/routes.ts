@@ -4,8 +4,10 @@ import { CreateUserController } from './controllers/user/CreateUserController';
 import { AuthUserController } from './controllers/user/AuthUserController';
 import { DetailUserController } from './controllers/user/DetailUserController';
 import { CreatePostController } from './controllers/post/CreatePostController'; 
+import { UserPostController } from './controllers/post/UserPostController';
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
+
 
 const router = Router();
 
@@ -16,5 +18,5 @@ router.get('/me', isAuthenticated, new DetailUserController().handle);
 
 //-- ROTAS POST --
 router.post('/post', isAuthenticated, new CreatePostController().handle);
-
+router.get('/user-post', isAuthenticated, new UserPostController().handle);
 export {router};

@@ -20,7 +20,11 @@ class CreatePostServices{
                 author_id: author_id
             },
             include:{
-                likes: true
+                _count:{
+                    select:{
+                        likes: true
+                    }
+                }
             }
         })
 
