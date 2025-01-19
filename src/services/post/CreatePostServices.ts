@@ -2,7 +2,7 @@ import prismaClient from "../../prisma";
 
 interface PostRequest {
     textPost: string;
-    imagePost: string;
+    imagePost?: string;
     author_id: string;
 }
 

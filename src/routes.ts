@@ -8,11 +8,13 @@ import { UpdateUserBannerController } from './controllers/user/UpdateUserBannerC
 import { CreatePostController } from './controllers/post/CreatePostController'; 
 import { UserPostController } from './controllers/post/UserPostController';
 import { CreateLikeController } from './controllers/like/CreateLikeController';
+import { UpdateUserAvatarController } from './controllers/user/UpdateUserAvatarController';
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
 import { RemoveLikeController } from './controllers/like/RemoveLikeController';
 
 import uploadConfig from './config/multer';
+
 
 
 const router = Router();
@@ -24,9 +26,10 @@ router.post('/users', new CreateUserController().handle);
 router.post('/session', new AuthUserController().handle);
 router.get('/me', isAuthenticated, new DetailUserController().handle);
 router.put('/user-banner', isAuthenticated, upload.single('file'), new UpdateUserBannerController().handle);
+router.put('/user-avatar', isAuthenticated, upload.single('file'), new UpdateUserAvatarController().handle);
 
 //-- ROTAS POST --
-router.post('/post', isAuthenticated, new CreatePostController().handle);
+router.post('/post', isAuthenticated, upload.single('file'), new CreatePostController().handle);
 router.get('/user-post', isAuthenticated, new UserPostController().handle);
 
 //-- ROTAS LIKE --
