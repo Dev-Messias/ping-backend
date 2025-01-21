@@ -11,6 +11,7 @@ class DetailUserService{
                 id: true,
                 name: true,
                 email: true,
+                bio: true,
                 avatar: true,
                 banner: true
             }

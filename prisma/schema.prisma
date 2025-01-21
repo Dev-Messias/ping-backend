@@ -15,14 +15,15 @@ datasource db {
 
 //criar uma migration: npx prisma migrate dev --name nome-da-migration
 model User {
-  id         String       @id @default(uuid())
+  id         String   @id @default(uuid())
   name       String
   email      String
   password   String
+  bio        String?
   avatar     String?
   banner     String?
-  created_at DateTime     @default(now())
-  updated_at DateTime     @default(now())
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
   friends    Friend[] @relation("UserFriends")
   friendOf   Friend[] @relation("FriendOfUser")
   posts      Post[]
@@ -39,12 +40,10 @@ model Post {
   updated_at DateTime @default(now())
 
   user      User   @relation(fields: [author_id], references: [id])
-
-  @@map("posts")
   author_id String
   likes     Like[]
 
-  
+  @@map("posts")
 }
 
 model Like {
@@ -55,28 +54,24 @@ model Like {
 
   user    User   @relation(fields: [user_id], references: [id])
   post    Post   @relation(fields: [post_id], references: [id])
-  
-  @@map("likes")
   user_id String
   post_id String
 
   @@unique([user_id, post_id]) // Garante que um usuário só possa curtir uma postagem uma vez
-  
+  @@map("likes")
 }
 
 model Friend {
-  id String @id @default(uuid())
-  status      String   @default("NULL") // "PENDING", "APPROVED", "DECLINED"
+  id         String   @id @default(uuid())
+  status     String   @default("NULL") // "PENDING", "APPROVED", "DECLINED"
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
   user      User   @relation("UserFriends", fields: [user_id], references: [id])
   friend    User   @relation("FriendOfUser", fields: [friend_id], references: [id])
-  
-  @@map("frinds")
   user_id   String
   friend_id String
 
   @@unique([user_id, friend_id]) // Garante que a amizade seja única
-  
+  @@map("frinds")
 }
