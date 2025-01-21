@@ -10,6 +10,7 @@ import { UserPostController } from './controllers/post/UserPostController';
 import { CreateLikeController } from './controllers/like/CreateLikeController';
 import { UpdateUserAvatarController } from './controllers/user/UpdateUserAvatarController';
 import { DeletePostController } from './controllers/post/DeletePostController';
+import { UpdatePostController } from './controllers/post/UpdatePostController';
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
 import { RemoveLikeController } from './controllers/like/RemoveLikeController';
@@ -32,6 +33,7 @@ router.put('/user-avatar', isAuthenticated, upload.single('file'), new UpdateUse
 router.post('/post', isAuthenticated, upload.single('file'), new CreatePostController().handle);
 router.get('/user-post', isAuthenticated, new UserPostController().handle);
 router.delete('/remove-post', isAuthenticated, new DeletePostController().handle);
+router.put('/update-post', isAuthenticated, upload.single('file'), new UpdatePostController().handle)
 
 //-- ROTAS LIKE --
 router.post('/like', isAuthenticated, new CreateLikeController().handle);
